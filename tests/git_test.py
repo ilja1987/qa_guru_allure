@@ -1,4 +1,5 @@
 import allure
+from allure_commons.types import Severity
 from selene.support.shared import browser
 from selene import by, be
 
@@ -16,6 +17,10 @@ def test_git_without_allure(browser_setup):
 
 
 def test_git_with_as(browser_setup):
+    allure.dynamic.tag('web')
+    allure.dynamic.severity(Severity.BLOCKER)
+    allure.dynamic.feature('Задачи в репозитории')
+    allure.dynamic.story('Проверка ошибок в репозитории №1')
     with allure.step('Открываем главную страницу'):
         browser.open('https://github.com/')
     with allure.step('Ищем репозиторий'):
@@ -29,6 +34,10 @@ def test_git_with_as(browser_setup):
         browser.element(by.partial_text('#1 opened')).should(be.visible)
 
 
+@allure.tag('web')
+@allure.severity(Severity.CRITICAL)
+@allure.feature('Задачи в репозитории')
+@allure.story('Проверка ошибок в репозитории №2')
 def test_git_with_dec(browser_setup):
     open_main_page()
     search_for_repository('ilja1987/qa_guru_python_2')
